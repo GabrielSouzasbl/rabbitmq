@@ -57,14 +57,3 @@ docker-compose logs -f
 docker-compose logs -f rabbit1
 ```
 ![compose-logs](screenshots/compose-logs.png)
-
-### Future TODO's
-- HA proxy
-- Swarm deployment
-- Custom logging
-
-___
-
-Happy Coding :grinning: 
-
-Contact: kailashyogeshwar85@gmail.com
