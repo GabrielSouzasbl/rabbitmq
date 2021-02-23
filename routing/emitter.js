@@ -1,15 +1,18 @@
 const amqplib = require('amqplib');
 
-const exchangeName = "logs";
-const msg = process.argv.slice(2).join(' ') || 'Subscribe, Like, & Comment';
+const exchangeName = "direct_logs";
+const args = process.argv.slice(2);
+const msg = args[1] || 'Subscribe, Like, Comment';
+const logType = args[0]
+
+console.log(args, msg);
 
 const sendMsg = async () => {
   const connection = await amqplib.connect('amqp://admin:admin@0.0.0.0:5672');
   const channel = await connection.createChannel();
 
-  await channel.assertExchange(exchangeName, 'fanout', {durable: false});
-
-  channel.publish(exchangeName, '', Buffer.from(msg));
+  await channel.assertExchange(exchangeName, 'direct', {durable: false});
+  channel.publish(exchangeName, logType, Buffer.from(msg));
 
   console.log('Sent: ', msg);
   
