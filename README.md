@@ -1,5 +1,5 @@
 ## RabbitMQ Cluster
-Docker images to run RabbitMQ cluster. It uses RabbitMQ 3.7.17 for deploying set of 3 nodes rabbit1, rabbit2, rabbit3.
+Docker images to run RabbitMQ cluster. It uses RabbitMQ 3.7.17 for deploying set of 5 nodes rabbit1, rabbit2, rabbit3, rabbit4, rabbit5.
 Number of nodes are configurable.
 
 ## Resources
@@ -34,44 +34,6 @@ Add docker-compose file available in cluster directory to your project directory
 ```
 docker-compose up -d
 
-```
-
-### Compose Config
-```
-version: "3"
-services:
-  rabbit1:
-    image: lucifer8591/rabbitmq-server:3.7.17
-    hostname: rabbit1
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    environment:
-      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER:-admin}
-      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS:-admin}
-  rabbit2:
-    image: lucifer8591/rabbitmq-server:3.7.17
-    hostname: rabbit2
-    links:
-      - rabbit1
-    environment:
-      - CLUSTERED=true
-      - CLUSTER_WITH=rabbit1
-      - RAM_NODE=true
-    ports:
-      - "5673:5672"
-      - "15673:15672"
-  rabbit3:
-    image: lucifer8591/rabbitmq-server:3.7.17
-    hostname: rabbit3
-    links:
-      - rabbit1
-      - rabbit2
-    environment:
-      - CLUSTERED=true
-      - CLUSTER_WITH=rabbit1
-    ports:
-      - "5674:5672"
 ```
 
 ### Clusters Launching Progress 
