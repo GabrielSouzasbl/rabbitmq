@@ -10,9 +10,12 @@ console.log(args, msg);
 const sendMsg = async () => {
   const connection = await amqplib.connect('amqp://admin:admin@0.0.0.0:5672');
   const channel = await connection.createChannel();
+
   await channel.assertExchange(exchangeName, 'direct', {durable: false});
   channel.publish(exchangeName, logType, Buffer.from(msg));
+
   console.log('Sent: ', msg);
+  
   setTimeout(() => {
     connection.close();
     process.exit(0);
